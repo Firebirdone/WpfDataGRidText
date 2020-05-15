@@ -1,0 +1,33 @@
+﻿<Window x:Class="WpfDataGRidText.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfDataGRidText"
+         xmlns:assembly="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="GenderEnum" MethodName="GetValues" 
+                            ObjectType="{x:Type assembly:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type Type="local:GenderOpt"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="80" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Age" Width="50" Binding="{Binding Age}"/>
+                <DataGridComboBoxColumn Width="80" Header="Sex" 
+                                        SelectedItemBinding="{Binding Gender}" 
+                                        ItemsSource="{Binding Source={StaticResource GenderEnum}}"/>
+                <DataGridCheckBoxColumn Header="Pass Exam?" Width="100" 
+                                        Binding="{Binding Pass}"/>
+                <DataGridHyperlinkColumn Header="Email" Width="150" 
+                                         Binding="{Binding Email}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
